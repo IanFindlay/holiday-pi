@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
+import { AirportsService } from '../airports.service';
+import { Airport } from '../interfaces';
+
 @Component({
   selector: 'app-journey',
   templateUrl: './journey.component.html',
@@ -9,16 +12,43 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class JourneyComponent implements OnInit {
   sectionHeading = 'The Case of the Cheapest Way to Get to the Airport';
 
+  airports: Airport[] = [];
+
+  selectedAirport?: Airport;
+
   journeyForm = this.fb.group({
-    distance: ["", Validators.compose([Validators.required, Validators.min(0.1)])],
-    numPassengers: ["", Validators.compose([Validators.required, Validators.min(1)])],
+    departureAirport: ['', Validators.required],
+    distance: [
+      '',
+      Validators.compose([Validators.required, Validators.min(0.1)]),
+    ],
+    numPassengers: [
+      '',
+      Validators.compose([Validators.required, Validators.min(1)]),
+    ],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private airportsService: AirportsService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAirports();
+  }
+
+  getAirports(): void {
+    this.airportsService.getAirports().subscribe((airports) => {
+      this.airports = airports.airports.sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+    });
+  }
 
   onSubmit() {
+    this.selectedAirport = this.airports.filter(
+      (airport) => airport.name === this.journeyForm.value.departureAirport
+    )[0];
     console.warn(this.journeyForm.value);
   }
 }
