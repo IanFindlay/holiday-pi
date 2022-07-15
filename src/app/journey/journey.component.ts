@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { AirportsService } from '../airports.service';
+import { noNonIntegers } from '../customValidators.directive';
 import { Airport } from '../interfaces';
 
 @Component({
@@ -24,7 +25,7 @@ export class JourneyComponent implements OnInit {
     ],
     numPassengers: [
       '',
-      Validators.compose([Validators.required, Validators.min(1)]),
+      Validators.compose([Validators.required, Validators.min(1), noNonIntegers()]),
     ],
   });
 

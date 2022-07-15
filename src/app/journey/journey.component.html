@@ -8,7 +8,7 @@
         {{ airport.name }}
       </mat-option>
     </mat-select>
-    <mat-hint align="start">Must select an airport</mat-hint>
+    <mat-hint align="start">Select an airport</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="formField" appearance="fill">
@@ -23,12 +23,12 @@
     <input
       matInput
       type="number"
-      min="0"
+      min="1"
       formControlName="numPassengers"
       required
     />
     <mat-hint align="start">Must be a whole number greater than 0</mat-hint>
-    <mat-error align="start">Not a whole number greater than 0</mat-error>
+    <mat-error>Not a whole number greater than 0</mat-error>
   </mat-form-field>
 
   <p>Enter all the clues above, press submit and I will investigate</p>
