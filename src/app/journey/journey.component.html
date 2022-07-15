@@ -16,7 +16,7 @@
   </mat-form-field>
 
   <p>Enter all the clues above, press submit and I will investigate</p>
-  <button type="submit" [disabled]="!journeyForm.valid">Submit</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!journeyForm.valid">Submit</button>
 </form>
 
 <p>Form Status: {{ journeyForm.status }}</p>
