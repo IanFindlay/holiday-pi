@@ -10,8 +10,8 @@ export class JourneyComponent implements OnInit {
   sectionHeading = 'The Case of the Cheapest Way to Get to the Airport';
 
   journeyForm = this.fb.group({
-    numPassengers: [0, Validators.compose([Validators.required, Validators.min(1)])],
-    distance: [0, Validators.compose([Validators.required, Validators.min(1)])],
+    distance: ["", Validators.compose([Validators.required, Validators.min(0.1)])],
+    numPassengers: ["", Validators.compose([Validators.required, Validators.min(1)])],
   });
 
   constructor(private fb: FormBuilder) {}

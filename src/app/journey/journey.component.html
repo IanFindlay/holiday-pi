@@ -1,14 +1,19 @@
 <h3>{{ sectionHeading }}</h3>
+
 <form [formGroup]="journeyForm" (ngSubmit)="onSubmit()">
-  <label for="distance">Distance to airport: </label>
-  <input id="distance" type="number" min="1" formControlName="distance" />
-  <label for="numPassengers">Number of passengers: </label>
-  <input
-    id="numPassengers"
-    type="number"
-    min="1"
-    formControlName="numPassengers"
-  />
+  <mat-form-field class="formField" appearance="fill">
+    <mat-label>Distance to airport (in miles)</mat-label>
+    <input matInput type="number" min="0" formControlName="distance" required />
+    <mat-hint align="start">Must be greater than 0</mat-hint>
+    <mat-error align="start">Not a number higher than 0</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="formField" appearance="fill">
+    <mat-label>Number of passengers</mat-label>
+    <input matInput type="number" min="0" formControlName="numPassengers" required />
+    <mat-hint align="start">Must be greater than 0</mat-hint>
+    <mat-error align="start">Not a number higher than 0</mat-error>
+  </mat-form-field>
 
   <p>Enter all the clues above, press submit and I will investigate</p>
   <button type="submit" [disabled]="!journeyForm.valid">Submit</button>
