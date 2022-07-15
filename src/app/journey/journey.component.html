@@ -1,13 +1,17 @@
-<h3>{{sectionHeading}}</h3>
+<h3>{{ sectionHeading }}</h3>
 <form [formGroup]="journeyForm" (ngSubmit)="onSubmit()">
-
   <label for="distance">Distance to airport: </label>
-  <input id="distance" type="number" min="1" formControlName="distance">
+  <input id="distance" type="number" min="1" formControlName="distance" />
   <label for="numPassengers">Number of passengers: </label>
-  <input id="numPassengers" type="number" min="1" formControlName="numPassengers">
+  <input
+    id="numPassengers"
+    type="number"
+    min="1"
+    formControlName="numPassengers"
+  />
 
+  <p>Enter all the clues above, press submit and I will investigate</p>
+  <button type="submit" [disabled]="!journeyForm.valid">Submit</button>
 </form>
-<p>Enter all the clues above, press submit and I will investigate</p>
-<button type="submit" [disabled]="!journeyForm.valid">Submit</button>
 
 <p>Form Status: {{ journeyForm.status }}</p>
