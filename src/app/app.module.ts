@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { JourneyComponent } from './journey/journey.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatFormFieldModule} from '@angular/material/form-field'
 import {MatInputModule} from '@angular/material/input'
 
 
@@ -19,7 +18,6 @@ import {MatInputModule} from '@angular/material/input'
     BrowserModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatFormFieldModule,
     MatInputModule,
   ],
   providers: [],
