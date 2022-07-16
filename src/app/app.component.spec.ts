@@ -25,6 +25,6 @@ describe('AppComponent', () => {
   it(`should have as subtitle 'Let Me Investigate The Cheapest Way For You To Go From A To Holiday'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Holiday PI');
+    expect(app.subtitle).toEqual('Let Me Investigate The Cheapest Way For You To Go From A To Holiday');
   });
 });
