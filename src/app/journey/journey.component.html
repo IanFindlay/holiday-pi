@@ -42,4 +42,6 @@
   </button>
 </form>
 
-<p>Form Status: {{ journeyForm.status }}</p>
+<div *ngIf="journeyMessage">
+  <p>{{journeyMessage}}</p>
+</div>

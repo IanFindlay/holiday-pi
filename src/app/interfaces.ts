@@ -8,3 +8,8 @@ export interface Airport {
 export interface Airports {
   airports: Array<Airport>;
 }
+
+export interface JourneyDetails {
+  taxi: number;
+  car: number;
+}
