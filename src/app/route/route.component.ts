@@ -19,8 +19,9 @@ export class RouteComponent implements OnInit {
   @Input() selectedAirport?: Airport;
 
   formSubmitting = false;
-  routeResults?: RouteDetails;
-  showReturn?: boolean;
+  outboundDetails?: RouteDetails;
+  returnDetails?: RouteDetails;
+  calculateReturn?: boolean;
 
   routeForm = this.fb.group({
     departureAirport: ['', Validators.required],
@@ -33,7 +34,7 @@ export class RouteComponent implements OnInit {
         noNonIntegers(),
       ]),
     ],
-    showReturn: ['true',]
+    calculateReturn: ['true'],
   });
 
   constructor(
@@ -52,13 +53,24 @@ export class RouteComponent implements OnInit {
     const destinationAirport = <Airport>(
       (<unknown>this.routeForm.value.destinationAirport)
     );
-    this.showReturn = this.routeForm.value.showReturn === "true" ? true : false;
+    this.calculateReturn =
+      this.routeForm.value.calculateReturn === 'true' ? true : false;
 
     this.routeCalculationService
       .calculateRoute(numPassengers, departureAirport, destinationAirport)
       .subscribe((route) => {
-        this.routeResults = route;
-        this.formSubmitting = false;
+        this.outboundDetails = route;
+        console.warn(this.outboundDetails);
       });
+
+    if (this.calculateReturn) {
+      this.routeCalculationService
+        .calculateRoute(numPassengers, destinationAirport, departureAirport)
+        .subscribe((route) => {
+          this.returnDetails = route;
+          console.warn(this.returnDetails);
+        });
+    }
+    this.formSubmitting = false;
   }
 }

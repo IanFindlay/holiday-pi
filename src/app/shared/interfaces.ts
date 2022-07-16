@@ -18,14 +18,8 @@ export interface JourneyDetails {
 
 export interface RouteDetails {
   details: {
-    outboundDetails: {
-      journey: string[];
-      miles: number[];
-    };
-    returnDetails: {
-      journey: string[];
-      miles: number[];
-    };
+    journey: string[];
+    miles: number[];
     totalCost: number;
   };
 }

@@ -39,7 +39,7 @@
   </mat-form-field>
 
   <div>
-    <mat-checkbox formControlName="showReturn" [checked]="showReturn"
+    <mat-checkbox formControlName="calculateReturn" [checked]="calculateReturn"
       >Calculate return</mat-checkbox
     >
   </div>
@@ -57,20 +57,4 @@
 
 <div *ngIf="formSubmitting">
   <p>Investigating...<mat-progress-bar></mat-progress-bar></p>
-</div>
-
-<div *ngIf="routeResults">
-  <h3>Outbound Journey</h3>
-  <div *ngFor="let airport of routeResults.details.outboundDetails.journey">
-    <p>{{ airport }}</p>
-  </div>
-
-  <div *ngIf="showReturn">
-    <h3>Return Journey</h3>
-    <div *ngFor="let airport of routeResults.details.returnDetails.journey">
-      <p>{{ airport }}</p>
-    </div>
-  </div>
-  
-  <h3>Total cost of flights: {{routeResults.details.totalCost.toFixed(2)}}</h3>
 </div>
