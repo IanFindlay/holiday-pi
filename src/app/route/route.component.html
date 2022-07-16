@@ -1,9 +1,9 @@
 <h3>{{ sectionHeading }}</h3>
 
-<form [formGroup]="journeyForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="routeForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="formField" appearance="fill">
     <mat-label>Departure Airport</mat-label>
-    <mat-select formControlName="departureAirport" required>
+    <mat-select formControlName="departureAirport" [value]="selectedAirport" required>
       <mat-option *ngFor="let airport of airports" [value]="airport">
         {{ airport.name }}
       </mat-option>
@@ -11,11 +11,15 @@
     <mat-hint align="start">Select an airport</mat-hint>
   </mat-form-field>
 
+<form [formGroup]="routeForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="formField" appearance="fill">
-    <mat-label>Distance to airport (in miles)</mat-label>
-    <input matInput type="number" min="0" formControlName="distance" required />
-    <mat-hint align="start">Must be greater than 0</mat-hint>
-    <mat-error align="start">Not a number higher than 0</mat-error>
+    <mat-label>Destination Airport</mat-label>
+    <mat-select formControlName="destinationAirport" required>
+      <mat-option *ngFor="let airport of airports" [value]="airport">
+        {{ airport.name }}
+      </mat-option>
+    </mat-select>
+    <mat-hint align="start">Select an airport</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="formField" appearance="fill">
@@ -36,7 +40,7 @@
     mat-raised-button
     color="primary"
     type="submit"
-    [disabled]="!journeyForm.valid"
+    [disabled]="!routeForm.valid"
   >
     Submit
   </button>
@@ -44,8 +48,4 @@
 
 <div *ngIf="formSubmitting">
   <p>Investigating...<mat-progress-bar></mat-progress-bar></p>
-</div>
-
-<div *ngIf="journeyMessage">
-  <p>{{journeyMessage}}</p>
 </div>

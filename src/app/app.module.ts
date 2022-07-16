@@ -13,9 +13,10 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { MatSelectModule } from '@angular/material/select';
 import { MainComponent } from './main/main.component';
+import { RouteComponent } from './route/route.component';
 
 @NgModule({
-  declarations: [AppComponent, JourneyComponent, MainComponent],
+  declarations: [AppComponent, JourneyComponent, MainComponent, RouteComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

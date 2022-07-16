@@ -13,6 +13,7 @@ export class MainComponent implements OnInit {
   airportsLoading = false;
   airports!: Airport[];
   numPassengers?: number;
+  selectedAirport?: Airport;
 
   constructor(
     private airportsService: AirportsService,

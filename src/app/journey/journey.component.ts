@@ -16,9 +16,9 @@ export class JourneyComponent implements OnInit {
 
   @Input() airports?: Airport[];
   @Input() numPassengers?: number;
+  @Input() selectedAirport?: Airport;
 
   formSubmitting = false;
-  selectedAirport?: Airport;
 
   journeyMessage?: string;
 
@@ -47,9 +47,7 @@ export class JourneyComponent implements OnInit {
 
   onSubmit(): void {
     this.formSubmitting = true;
-    this.selectedAirport = this.airports?.filter(
-      (airport) => airport.name === this.journeyForm.value.departureAirport
-    )[0];
+    this.selectedAirport = <Airport> <unknown>this.journeyForm.value.departureAirport;
     const distance = <string>this.journeyForm.value.distance;
     this.numPassengers = Number(this.journeyForm.value.numPassengers);
 
@@ -64,5 +62,6 @@ export class JourneyComponent implements OnInit {
         );
         this.formSubmitting = false;
       });
+    console.warn(this.journeyForm.value)
   }
 }
