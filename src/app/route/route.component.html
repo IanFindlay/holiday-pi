@@ -61,7 +61,7 @@
 
 <section *ngIf="outboundDetails">
   <h3>Outbound Journey</h3>
-  <ul
+  <mat-list
     *ngFor="
       let airport of outboundDetails.details.journey;
       index as i;
@@ -69,17 +69,17 @@
       last as destination
     "
   >
-    <li>
-      <p>{{airport}}</p>
-      <p *ngIf="i < outboundDetails.details.miles.length">{{outboundDetails.details.miles[i]}} miles</p>
-    </li>
-  </ul>
+    <mat-list-item>
+      <p matLine>{{airport}}</p>
+      <p matLine *ngIf="!departure">{{outboundDetails.details.miles[i - 1]}} miles</p>
+    </mat-list-item>
+  </mat-list>
   <p>Total cost to destination: £{{outboundDetails.details.totalCost.toFixed(2)}}</p>
 </section>
 
 <section *ngIf="returnDetails">
   <h3>Return Journey</h3>
-  <ul
+  <mat-list
     *ngFor="
       let airport of returnDetails.details.journey;
       index as i;
@@ -87,11 +87,11 @@
       last as destination
     "
   >
-    <li>
-      <p>{{airport}}</p>
-      <p *ngIf="i < returnDetails.details.miles.length">{{returnDetails.details.miles[i]}} miles</p>
-    </li>
-  </ul>
+    <mat-list-item>
+      <p matLine>{{airport}}</p>
+      <p matLine *ngIf="!departure">{{returnDetails.details.miles[i - 1]}} miles</p>
+    </mat-list-item>
+  </mat-list>
   <p>Total cost to get back home: £{{returnDetails.details.totalCost.toFixed(2)}}</p>
   
   <h3>Total Airline Cost: £{{airlineTotalCost.toFixed(2)}}</h3>
