@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { RouteCalculationService } from '../route-calculation.service';
 import { noNonIntegers } from '../shared/customValidators.directive';
 
 import { Airport } from '../shared/interfaces';
@@ -10,7 +11,8 @@ import { Airport } from '../shared/interfaces';
   styleUrls: ['./route.component.css'],
 })
 export class RouteComponent implements OnInit {
-  sectionHeading = 'The Case of the Cheapest Way to Go From One Airport to Another and Back Again';
+  sectionHeading =
+    'The Case of the Cheapest Way to Go From One Airport to Another and Back Again';
 
   @Input() airports?: Airport[];
   @Input() numPassengers?: number;
@@ -20,10 +22,10 @@ export class RouteComponent implements OnInit {
   routeResults = {};
 
   routeForm = this.fb.group({
-    departureAirport: ["", Validators.required],
+    departureAirport: ['', Validators.required],
     destinationAirport: ['', Validators.required],
     numPassengers: [
-      "",
+      '',
       Validators.compose([
         Validators.required,
         Validators.min(1),
@@ -31,15 +33,32 @@ export class RouteComponent implements OnInit {
       ]),
     ],
   });
-  
-  constructor(private fb: FormBuilder) {}
+
+  constructor(
+    private fb: FormBuilder,
+    private routeCalculationService: RouteCalculationService
+  ) {}
 
   ngOnInit(): void {}
 
   onSubmit(): void {
     this.formSubmitting = true;
-    this.numPassengers = Number(this.routeForm.value.numPassengers);
+    const numPassengers = Number(this.routeForm.value.numPassengers);
+    const departureAirport = <Airport>(
+      (<unknown>this.routeForm.value.departureAirport)
+    );
+    const destinationAirport = <Airport>(
+      (<unknown>this.routeForm.value.destinationAirport)
+    );
     this.formSubmitting = false;
-    console.warn(this.routeForm.value)
+    console.warn(this.routeForm.value);
+
+    this.routeCalculationService
+      .calculateRoute(numPassengers, departureAirport, destinationAirport)
+      .subscribe((route) => {
+        const { outboundDetails, returnDetails, totalCost } = route.details;
+        this.formSubmitting = false;
+        console.log(outboundDetails, returnDetails, totalCost);
+      });
   }
 }

@@ -15,3 +15,17 @@ export interface JourneyDetails {
     car: number;
   };
 }
+
+export interface RouteDetails {
+  details: {
+    outboundDetails: {
+      journey: string[];
+      miles: number[];
+    };
+    returnDetails: {
+      journey: string[];
+      miles: number[];
+    };
+    totalCost: number;
+  };
+}
