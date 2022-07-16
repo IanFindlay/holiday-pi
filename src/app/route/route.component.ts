@@ -89,7 +89,6 @@ export class RouteComponent implements OnInit {
           this.routeDisplay.totalCost += route.details.totalCost;
           this.routeDisplay.showReturn = true;
           this.formSubmitting = false;
-          console.warn(this.routeDisplay);
         });
     }
   }
