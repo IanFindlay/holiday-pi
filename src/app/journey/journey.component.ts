@@ -4,7 +4,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AirportsService } from '../airports.service';
 import { JourneyCalculationService } from '../journey-calculation.service';
 import { noNonIntegers } from '../shared/customValidators.directive';
-import { Airport} from '../shared/interfaces';
+import { Airport } from '../shared/interfaces';
+import { composeJourneyMessage } from '../shared/utilities';
 
 @Component({
   selector: 'app-journey',
@@ -58,27 +59,14 @@ export class JourneyComponent implements OnInit {
     this.selectedAirport = this.airports.filter(
       (airport) => airport.name === this.journeyForm.value.departureAirport
     )[0];
-    const distance = Number(this.journeyForm.value.distance);
-    const numPassengers = Number(this.journeyForm.value.numPassengers);
+    const distance = <string>this.journeyForm.value.distance;
+    const numPassengers = <string>this.journeyForm.value.numPassengers;
 
     this.journeyCalculationService
       .calculateJourney(distance, numPassengers)
       .subscribe((details) => {
-
-        // Extract to separate function - unittest / tdd it?
-        let journeyMessage = '';
         const { taxi, car } = details.journey;
-        if (taxi === car)
-          journeyMessage = `Taxi(s) or car(s)... I estimate that it won't matter as both will cost about £${taxi}`;
-        else {
-          const lowestPrice = taxi < car ? taxi : car;
-          const highestPrice = taxi > car ? taxi : car;
-          journeyMessage = `${lowestPrice}, ${highestPrice} ${
-            highestPrice - lowestPrice
-          }`;
-        }
-        this.journeyMessage = journeyMessage;
-
+        this.journeyMessage = composeJourneyMessage(taxi, car, Number(numPassengers));
       });
   }
 }
