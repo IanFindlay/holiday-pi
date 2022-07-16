@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { JourneyDetails } from './interfaces';
+import { JourneyDetails } from './shared/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class JourneyCalculationService {
 
   constructor(private http: HttpClient) {}
 
-  calculateJourney(distance: string | null | undefined, numPassengers: string | null | undefined): Observable<any> {
+  calculateJourney(distance: number, numPassengers: number): Observable<JourneyDetails> {
     return this.http.get<JourneyDetails>(`${this.journeyUrl}?distance=${distance}&numPassengers=${numPassengers}`);
   }
 }

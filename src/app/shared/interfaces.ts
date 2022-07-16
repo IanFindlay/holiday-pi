@@ -10,6 +10,8 @@ export interface Airports {
 }
 
 export interface JourneyDetails {
-  taxi: number;
-  car: number;
+  journey: {
+    taxi: number;
+    car: number;
+  };
 }

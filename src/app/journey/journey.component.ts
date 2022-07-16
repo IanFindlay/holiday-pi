@@ -3,8 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { AirportsService } from '../airports.service';
 import { JourneyCalculationService } from '../journey-calculation.service';
-import { noNonIntegers } from '../customValidators.directive';
-import { Airport} from '../interfaces';
+import { noNonIntegers } from '../shared/customValidators.directive';
+import { Airport} from '../shared/interfaces';
 
 @Component({
   selector: 'app-journey',
@@ -58,8 +58,9 @@ export class JourneyComponent implements OnInit {
     this.selectedAirport = this.airports.filter(
       (airport) => airport.name === this.journeyForm.value.departureAirport
     )[0];
-    const distance = this.journeyForm.value.distance;
-    const numPassengers = this.journeyForm.value.numPassengers;
+    const distance = Number(this.journeyForm.value.distance);
+    const numPassengers = Number(this.journeyForm.value.numPassengers);
+
     this.journeyCalculationService
       .calculateJourney(distance, numPassengers)
       .subscribe((details) => {
