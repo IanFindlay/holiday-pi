@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import {MatProgressBarModule} from '@angular/material/progress-bar'; 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
@@ -20,6 +22,8 @@ import { MatSelectModule } from '@angular/material/select';
     BrowserAnimationsModule,
     MatButtonModule,
     MatInputModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
   ],
   providers: [],

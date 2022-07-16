@@ -1,5 +1,9 @@
 <h3>{{ sectionHeading }}</h3>
 
+<div *ngIf="airportsLoading">
+  <p>Loading airports list...</p>
+  <mat-spinner mode="indeterminate" diameter="20"></mat-spinner>
+</div>
 <form [formGroup]="journeyForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="formField" appearance="fill">
     <mat-label>Departure Airport</mat-label>
@@ -41,6 +45,10 @@
     Submit
   </button>
 </form>
+
+<div *ngIf="formSubmitting">
+  <p>Investigating...<mat-progress-bar></mat-progress-bar></p>
+</div>
 
 <div *ngIf="journeyMessage">
   <p>{{journeyMessage}}</p>

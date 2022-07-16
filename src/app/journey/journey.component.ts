@@ -15,8 +15,10 @@ import { composeJourneyMessage } from '../shared/utilities';
 export class JourneyComponent implements OnInit {
   sectionHeading = 'The Case of the Cheapest Way to Get to the Airport';
 
+  airportsLoading = false;
   airports: Airport[] = [];
 
+  formSubmitting = false;
   selectedAirport?: Airport;
 
   journeyMessage?: string;
@@ -48,14 +50,17 @@ export class JourneyComponent implements OnInit {
   }
 
   getAirports(): void {
+    this.airportsLoading = true;
     this.airportsService.getAirports().subscribe((airports) => {
       this.airports = airports.airports.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
+      this.airportsLoading = false;
     });
   }
 
   onSubmit(): void {
+   this.formSubmitting = true; 
     this.selectedAirport = this.airports.filter(
       (airport) => airport.name === this.journeyForm.value.departureAirport
     )[0];
@@ -67,6 +72,7 @@ export class JourneyComponent implements OnInit {
       .subscribe((details) => {
         const { taxi, car } = details.journey;
         this.journeyMessage = composeJourneyMessage(taxi, car, Number(numPassengers));
+        this.formSubmitting = false; 
       });
   }
 }
