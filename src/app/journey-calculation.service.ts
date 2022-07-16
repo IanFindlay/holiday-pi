@@ -12,7 +12,7 @@ export class JourneyCalculationService {
 
   constructor(private http: HttpClient) {}
 
-  calculateJourney(distance: string, numPassengers: string): Observable<JourneyDetails> {
+  calculateJourney(distance: string, numPassengers: number): Observable<JourneyDetails> {
     return this.http.get<JourneyDetails>(`${this.journeyUrl}?distance=${distance}&numPassengers=${numPassengers}`);
   }
 }

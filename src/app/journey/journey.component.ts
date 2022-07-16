@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { AirportsService } from '../airports.service';
 import { JourneyCalculationService } from '../journey-calculation.service';
 import { noNonIntegers } from '../shared/customValidators.directive';
 import { Airport } from '../shared/interfaces';
@@ -15,11 +14,11 @@ import { composeJourneyMessage } from '../shared/utilities';
 export class JourneyComponent implements OnInit {
   sectionHeading = 'The Case of the Cheapest Way to Get to the Airport';
 
-  airportsLoading = false;
-  airports: Airport[] = [];
+  @Input() airports?: Airport[];
+  @Input() numPassengers?: number;
+  @Input() selectedAirport?: Airport;
 
   formSubmitting = false;
-  selectedAirport?: Airport;
 
   journeyMessage?: string;
 
@@ -41,38 +40,29 @@ export class JourneyComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private airportsService: AirportsService,
     private journeyCalculationService: JourneyCalculationService
   ) {}
 
-  ngOnInit(): void {
-    this.getAirports();
-  }
-
-  getAirports(): void {
-    this.airportsLoading = true;
-    this.airportsService.getAirports().subscribe((airports) => {
-      this.airports = airports.airports.sort((a, b) =>
-        a.name.localeCompare(b.name)
-      );
-      this.airportsLoading = false;
-    });
-  }
+  ngOnInit(): void {}
 
   onSubmit(): void {
-   this.formSubmitting = true; 
-    this.selectedAirport = this.airports.filter(
-      (airport) => airport.name === this.journeyForm.value.departureAirport
-    )[0];
+    this.formSubmitting = true;
+    this.selectedAirport = <Airport>(
+      (<unknown>this.journeyForm.value.departureAirport)
+    );
     const distance = <string>this.journeyForm.value.distance;
-    const numPassengers = <string>this.journeyForm.value.numPassengers;
+    this.numPassengers = Number(this.journeyForm.value.numPassengers);
 
     this.journeyCalculationService
-      .calculateJourney(distance, numPassengers)
+      .calculateJourney(distance, this.numPassengers)
       .subscribe((details) => {
         const { taxi, car } = details.journey;
-        this.journeyMessage = composeJourneyMessage(taxi, car, Number(numPassengers));
-        this.formSubmitting = false; 
+        this.journeyMessage = composeJourneyMessage(
+          taxi,
+          car,
+          <number>this.numPassengers
+        );
+        this.formSubmitting = false;
       });
   }
 }

@@ -1,9 +1,13 @@
 <h3>{{ sectionHeading }}</h3>
 
-<form [formGroup]="journeyForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="routeForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="formField" appearance="fill">
     <mat-label>Departure Airport</mat-label>
-    <mat-select formControlName="departureAirport" required>
+    <mat-select
+      formControlName="departureAirport"
+      [value]="selectedAirport"
+      required
+    >
       <mat-option *ngFor="let airport of airports" [value]="airport">
         {{ airport.name }}
       </mat-option>
@@ -12,10 +16,13 @@
   </mat-form-field>
 
   <mat-form-field class="formField" appearance="fill">
-    <mat-label>Distance to airport (in miles)</mat-label>
-    <input matInput type="number" min="0" formControlName="distance" required />
-    <mat-hint align="start">Must be greater than 0</mat-hint>
-    <mat-error align="start">Not a number higher than 0</mat-error>
+    <mat-label>Destination Airport</mat-label>
+    <mat-select formControlName="destinationAirport" required>
+      <mat-option *ngFor="let airport of airports" [value]="airport">
+        {{ airport.name }}
+      </mat-option>
+    </mat-select>
+    <mat-hint align="start">Select an airport</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="formField" appearance="fill">
@@ -31,12 +38,17 @@
     <mat-error>Not a whole number greater than 0</mat-error>
   </mat-form-field>
 
-  <p>Enter all the clues above, press submit and I will investigate</p>
+  <div>
+    <mat-checkbox formControlName="calculateReturn" [checked]="calculateReturn"
+      >Calculate return</mat-checkbox
+    >
+  </div>
+
   <button
     mat-raised-button
     color="primary"
     type="submit"
-    [disabled]="!journeyForm.valid"
+    [disabled]="!routeForm.valid"
   >
     Investigate
   </button>
@@ -46,6 +58,7 @@
   <p>Investigating...<mat-progress-bar></mat-progress-bar></p>
 </div>
 
-<div *ngIf="journeyMessage">
-  <p>{{ journeyMessage }}</p>
-</div>
+<app-route-results
+  *ngIf="routeDisplay.outboundJourney.length"
+  [routeResults]="routeDisplay"
+></app-route-results>
