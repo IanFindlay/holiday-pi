@@ -47,7 +47,9 @@ export class JourneyComponent implements OnInit {
 
   onSubmit(): void {
     this.formSubmitting = true;
-    this.selectedAirport = <Airport> <unknown>this.journeyForm.value.departureAirport;
+    this.selectedAirport = <Airport>(
+      (<unknown>this.journeyForm.value.departureAirport)
+    );
     const distance = <string>this.journeyForm.value.distance;
     this.numPassengers = Number(this.journeyForm.value.numPassengers);
 
