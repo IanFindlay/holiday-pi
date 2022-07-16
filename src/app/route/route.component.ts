@@ -15,13 +15,14 @@ export class RouteComponent implements OnInit {
     'The Case of the Cheapest Way to Go From One Airport to Another';
 
   @Input() airports?: Airport[];
-  @Input() numPassengers?: number;
   @Input() selectedAirport?: Airport;
+  @Input() numPassengers?: number;
 
   formSubmitting = false;
   outboundDetails?: RouteDetails;
   returnDetails?: RouteDetails;
   calculateReturn?: boolean;
+  airlineTotalCost = 0;
 
   routeForm = this.fb.group({
     departureAirport: ['', Validators.required],
@@ -60,7 +61,8 @@ export class RouteComponent implements OnInit {
       .calculateRoute(numPassengers, departureAirport, destinationAirport)
       .subscribe((route) => {
         this.outboundDetails = route;
-        console.warn(this.outboundDetails);
+        this.airlineTotalCost += this.outboundDetails.details.totalCost;
+        if (!this.calculateReturn) this.formSubmitting = false;
       });
 
     if (this.calculateReturn) {
@@ -68,9 +70,9 @@ export class RouteComponent implements OnInit {
         .calculateRoute(numPassengers, destinationAirport, departureAirport)
         .subscribe((route) => {
           this.returnDetails = route;
-          console.warn(this.returnDetails);
+          this.airlineTotalCost += this.returnDetails.details.totalCost;
+          this.formSubmitting = false;
         });
     }
-    this.formSubmitting = false;
   }
 }

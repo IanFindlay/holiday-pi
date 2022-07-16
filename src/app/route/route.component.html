@@ -58,3 +58,41 @@
 <div *ngIf="formSubmitting">
   <p>Investigating...<mat-progress-bar></mat-progress-bar></p>
 </div>
+
+<section *ngIf="outboundDetails">
+  <h3>Outbound Journey</h3>
+  <ul
+    *ngFor="
+      let airport of outboundDetails.details.journey;
+      index as i;
+      first as departure;
+      last as destination
+    "
+  >
+    <li>
+      <p>{{airport}}</p>
+      <p *ngIf="i < outboundDetails.details.miles.length">{{outboundDetails.details.miles[i]}} miles</p>
+    </li>
+  </ul>
+  <p>Total cost to destination: £{{outboundDetails.details.totalCost.toFixed(2)}}</p>
+</section>
+
+<section *ngIf="returnDetails">
+  <h3>Return Journey</h3>
+  <ul
+    *ngFor="
+      let airport of returnDetails.details.journey;
+      index as i;
+      first as departure;
+      last as destination
+    "
+  >
+    <li>
+      <p>{{airport}}</p>
+      <p *ngIf="i < returnDetails.details.miles.length">{{returnDetails.details.miles[i]}} miles</p>
+    </li>
+  </ul>
+  <p>Total cost to get back home: £{{returnDetails.details.totalCost.toFixed(2)}}</p>
+  
+  <h3>Total Airline Cost: £{{airlineTotalCost.toFixed(2)}}</h3>
+</section>
