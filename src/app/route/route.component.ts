@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { RouteCalculationService } from '../route-calculation.service';
 import { noNonIntegers } from '../shared/customValidators.directive';
 
-import { Airport, RouteDetails } from '../shared/interfaces';
+import { Airport, RouteDisplay } from '../shared/interfaces';
 
 @Component({
   selector: 'app-route',
@@ -19,10 +19,19 @@ export class RouteComponent implements OnInit {
   @Input() numPassengers?: number;
 
   formSubmitting = false;
-  outboundDetails?: RouteDetails;
-  returnDetails?: RouteDetails;
+
+  routeDisplay: RouteDisplay = {
+    outboundJourney: [],
+    outboundMiles: [],
+    showReturn: false,
+    returnJourney: [],
+    returnMiles: [],
+    outboundTotalCost: 0,
+    returnTotalCost: 0,
+    totalCost: 0,
+  };
+
   calculateReturn?: boolean;
-  airlineTotalCost = 0;
 
   routeForm = this.fb.group({
     departureAirport: ['', Validators.required],
@@ -46,6 +55,7 @@ export class RouteComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void {
+    this.routeDisplay.totalCost = 0;
     this.formSubmitting = true;
     const numPassengers = Number(this.routeForm.value.numPassengers);
     const departureAirport = <Airport>(
@@ -54,26 +64,32 @@ export class RouteComponent implements OnInit {
     const destinationAirport = <Airport>(
       (<unknown>this.routeForm.value.destinationAirport)
     );
-    this.calculateReturn =
-      this.routeForm.value.calculateReturn === 'true' ? true : false;
+    this.calculateReturn = Boolean(this.routeForm.value.calculateReturn);
 
     this.routeCalculationService
       .calculateRoute(numPassengers, departureAirport, destinationAirport)
       .subscribe((route) => {
-        this.outboundDetails = route;
-        this.airlineTotalCost += this.outboundDetails.details.totalCost;
-        if (!this.calculateReturn) 
+        this.routeDisplay.outboundJourney = <string[]>route.details.journey;
+        this.routeDisplay.outboundMiles = route.details.miles;
+        this.routeDisplay.outboundTotalCost = route.details.totalCost;
+        this.routeDisplay.totalCost += route.details.totalCost;
+        if (!this.calculateReturn) {
           this.formSubmitting = false;
-          this.returnDetails = undefined;
+          this.routeDisplay.showReturn = false;
+        }
       });
 
     if (this.calculateReturn) {
       this.routeCalculationService
         .calculateRoute(numPassengers, destinationAirport, departureAirport)
         .subscribe((route) => {
-          this.returnDetails = route;
-          this.airlineTotalCost += this.returnDetails.details.totalCost;
+          this.routeDisplay.returnJourney = route.details.journey;
+          this.routeDisplay.returnMiles = route.details.miles;
+          this.routeDisplay.returnTotalCost = route.details.totalCost;
+          this.routeDisplay.totalCost += route.details.totalCost;
+          this.routeDisplay.showReturn = true;
           this.formSubmitting = false;
+          console.warn(this.routeDisplay);
         });
     }
   }
