@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { JourneyCalculationService } from '../journey-calculation.service';
+import { JourneyCalculationService } from '../services/journey-calculation.service';
 import { noNonIntegers } from '../shared/customValidators.directive';
 import { Airport } from '../shared/interfaces';
 import { composeJourneyMessage } from '../shared/utilities';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Airport } from '../shared/interfaces';
-import { AirportsService } from '../airports.service';
+import { AirportsService } from '../services/airports.service';
 
 @Component({
   selector: 'app-main',
@@ -26,7 +26,7 @@ export class MainComponent implements OnInit {
   getAirports(): void {
     this.airportsLoading = true;
     this.airportsService.getAirports().subscribe((airports) => {
-      this.airports = airports.airports.sort((a, b) =>
+      this.airports = airports.airports.sort((a: Airport, b: Airport) =>
         a.name.localeCompare(b.name)
       );
       this.airportsLoading = false;

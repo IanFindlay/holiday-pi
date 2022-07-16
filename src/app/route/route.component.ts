@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { RouteCalculationService } from '../route-calculation.service';
+import { RouteCalculationService } from '../services/route-calculation.service';
 import { noNonIntegers } from '../shared/customValidators.directive';
 
 import { Airport, RouteDisplay } from '../shared/interfaces';
