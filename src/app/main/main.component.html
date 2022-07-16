@@ -1,0 +1,5 @@
+<div *ngIf="airportsLoading">
+  <p>Loading airports list...</p>
+  <mat-spinner mode="indeterminate" diameter="20"></mat-spinner>
+</div>
+<app-journey [airports]="airports" [numPassengers]="numPassengers"></app-journey>
