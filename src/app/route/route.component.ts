@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { RouteCalculationService } from '../route-calculation.service';
 import { noNonIntegers } from '../shared/customValidators.directive';
 
-import { Airport } from '../shared/interfaces';
+import { Airport, RouteDetails } from '../shared/interfaces';
 
 @Component({
   selector: 'app-route',
@@ -12,14 +12,15 @@ import { Airport } from '../shared/interfaces';
 })
 export class RouteComponent implements OnInit {
   sectionHeading =
-    'The Case of the Cheapest Way to Go From One Airport to Another and Back Again';
+    'The Case of the Cheapest Way to Go From One Airport to Another';
 
   @Input() airports?: Airport[];
   @Input() numPassengers?: number;
   @Input() selectedAirport?: Airport;
 
   formSubmitting = false;
-  routeResults = {};
+  routeResults?: RouteDetails;
+  showReturn?: boolean;
 
   routeForm = this.fb.group({
     departureAirport: ['', Validators.required],
@@ -32,6 +33,7 @@ export class RouteComponent implements OnInit {
         noNonIntegers(),
       ]),
     ],
+    showReturn: ['true',]
   });
 
   constructor(
@@ -50,15 +52,13 @@ export class RouteComponent implements OnInit {
     const destinationAirport = <Airport>(
       (<unknown>this.routeForm.value.destinationAirport)
     );
-    this.formSubmitting = false;
-    console.warn(this.routeForm.value);
+    this.showReturn = this.routeForm.value.showReturn === "true" ? true : false;
 
     this.routeCalculationService
       .calculateRoute(numPassengers, departureAirport, destinationAirport)
       .subscribe((route) => {
-        const { outboundDetails, returnDetails, totalCost } = route.details;
+        this.routeResults = route;
         this.formSubmitting = false;
-        console.log(outboundDetails, returnDetails, totalCost);
       });
   }
 }

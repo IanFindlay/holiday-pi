@@ -3,7 +3,11 @@
 <form [formGroup]="routeForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="formField" appearance="fill">
     <mat-label>Departure Airport</mat-label>
-    <mat-select formControlName="departureAirport" [value]="selectedAirport" required>
+    <mat-select
+      formControlName="departureAirport"
+      [value]="selectedAirport"
+      required
+    >
       <mat-option *ngFor="let airport of airports" [value]="airport">
         {{ airport.name }}
       </mat-option>
@@ -11,7 +15,6 @@
     <mat-hint align="start">Select an airport</mat-hint>
   </mat-form-field>
 
-<form [formGroup]="routeForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="formField" appearance="fill">
     <mat-label>Destination Airport</mat-label>
     <mat-select formControlName="destinationAirport" required>
@@ -35,6 +38,12 @@
     <mat-error>Not a whole number greater than 0</mat-error>
   </mat-form-field>
 
+  <div>
+    <mat-checkbox formControlName="showReturn" [checked]="showReturn"
+      >Calculate return</mat-checkbox
+    >
+  </div>
+
   <p>Enter all the clues above, press submit and I will investigate</p>
   <button
     mat-raised-button
@@ -48,4 +57,20 @@
 
 <div *ngIf="formSubmitting">
   <p>Investigating...<mat-progress-bar></mat-progress-bar></p>
+</div>
+
+<div *ngIf="routeResults">
+  <h3>Outbound Journey</h3>
+  <div *ngFor="let airport of routeResults.details.outboundDetails.journey">
+    <p>{{ airport }}</p>
+  </div>
+
+  <div *ngIf="showReturn">
+    <h3>Return Journey</h3>
+    <div *ngFor="let airport of routeResults.details.returnDetails.journey">
+      <p>{{ airport }}</p>
+    </div>
+  </div>
+  
+  <h3>Total cost of flights: {{routeResults.details.totalCost.toFixed(2)}}</h3>
 </div>

@@ -62,6 +62,5 @@ export class JourneyComponent implements OnInit {
         );
         this.formSubmitting = false;
       });
-    console.warn(this.journeyForm.value)
   }
 }
