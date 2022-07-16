@@ -62,7 +62,9 @@ export class RouteComponent implements OnInit {
       .subscribe((route) => {
         this.outboundDetails = route;
         this.airlineTotalCost += this.outboundDetails.details.totalCost;
-        if (!this.calculateReturn) this.formSubmitting = false;
+        if (!this.calculateReturn) 
+          this.formSubmitting = false;
+          this.returnDetails = undefined;
       });
 
     if (this.calculateReturn) {
