@@ -61,28 +61,29 @@
   </mat-expansion-panel>
 </section>
 
-<h3>
+<h3 *ngIf="!includeJourney">
   Total Airline Cost: £{{ routeResults!.totalCost.toFixed(2) }} (£{{
     (routeResults!.totalCost / routeResults.numPassengers).toFixed(2)
   }}
   per person)
 </h3>
 
-<mat-slide-toggle color="primary" (change)="includeJourney = !includeJourney">
+<h3 *ngIf="includeJourney">
+  Total Cost Including Journey: £
+  {{ (journeyCost! + routeResults!.totalCost).toFixed(2) }}
+  (£{{
+    (
+      journeyCost! +
+      routeResults!.totalCost / routeResults.numPassengers
+    ).toFixed(2)
+  }}
+  per person)
+</h3>
+
+<mat-slide-toggle
+  *ngIf="journeyCost"
+  color="primary"
+  (change)="includeJourney = !includeJourney"
+>
   Include journey to airport</mat-slide-toggle
 >
-
-<section *ngIf="includeJourney">
-  <h3 *ngIf="journeyCost">
-    Cost of entire journey: £
-    {{ (journeyCost! + routeResults!.totalCost).toFixed(2) }}
-    (£{{
-      (
-        journeyCost! +
-        routeResults!.totalCost / routeResults.numPassengers
-      ).toFixed(2)
-    }}
-    per person)
-  </h3>
-  <p *ngIf="!journeyCost">Journey to the airport hasn't been calculated yet</p>
-</section>
