@@ -42,6 +42,7 @@ export class RouteComponent implements OnInit {
       totalMiles: 0,
       cost: 0,
     },
+    numPassengers: 0,
     showReturn: false,
     totalCost: 0,
   };
@@ -89,6 +90,7 @@ export class RouteComponent implements OnInit {
         this.addRouteToRouteDisplay(
           <RouteDetails>route,
           this.routeDisplay!,
+          numPassengers,
           false
         );
         if (!this.calculateReturn) {
@@ -105,6 +107,7 @@ export class RouteComponent implements OnInit {
           this.addRouteToRouteDisplay(
             <RouteDetails>route,
             this.routeDisplay!,
+            numPassengers,
             true
           );
           this.routeDisplay!.showReturn = true;
@@ -116,6 +119,7 @@ export class RouteComponent implements OnInit {
   private addRouteToRouteDisplay(
     route: RouteDetails,
     routeDisplay: RouteDisplay,
+    numPassengers: number,
     isReturn: boolean
   ): void {
     let routeSubObject = isReturn ? routeDisplay.return : routeDisplay.outbound;
@@ -126,5 +130,7 @@ export class RouteComponent implements OnInit {
     routeSubObject.cost = route.details.totalCost;
 
     routeDisplay.totalCost += route.details.totalCost;
+
+    if (!isReturn) routeDisplay.numPassengers = numPassengers;
   }
 }

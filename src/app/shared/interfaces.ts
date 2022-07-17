@@ -39,6 +39,7 @@ export interface RouteDisplay {
     numConnections: number;
     cost: number;
   };
+  numPassengers: number;
   showReturn: boolean;
   totalCost: number;
 }

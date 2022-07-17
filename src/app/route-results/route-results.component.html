@@ -60,5 +60,10 @@
     </mat-list>
   </mat-expansion-panel>
 
-  <h3>Total Airline Cost: £{{ routeResults!.totalCost.toFixed(2) }}</h3>
+  <h3>
+    Total Airline Cost: £{{ routeResults!.totalCost.toFixed(2) }} (£{{
+      (routeResults!.totalCost / routeResults.numPassengers).toFixed(2)
+    }}
+    per person)
+  </h3>
 </section>
