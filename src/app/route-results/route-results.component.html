@@ -1,7 +1,7 @@
 <h3>Outbound Journey</h3>
 <mat-list
   *ngFor="
-    let airport of routeResults!.outboundJourney;
+    let airport of routeResults!.outbound.journey;
     index as i;
     first as departure
   "
@@ -9,19 +9,19 @@
   <mat-list-item>
     <p matLine>{{ airport }}</p>
     <p matLine *ngIf="!departure">
-      {{ routeResults!.outboundMiles[i - 1] }} miles
+      {{ routeResults!.outbound.miles[i - 1] }} miles
     </p>
   </mat-list-item>
 </mat-list>
 <p>
-  Total cost to destination: £{{ routeResults!.outboundTotalCost.toFixed(2) }}
+  Total cost to destination: £{{ routeResults!.outbound.cost.toFixed(2) }}
 </p>
 
 <section *ngIf="routeResults!.showReturn">
   <h3>Return Journey</h3>
   <mat-list
     *ngFor="
-      let airport of routeResults!.returnJourney;
+      let airport of routeResults!.return.journey;
       index as i;
       first as departure
     "
@@ -29,13 +29,13 @@
     <mat-list-item>
       <p matLine>{{ airport }}</p>
       <p matLine *ngIf="!departure">
-        {{ routeResults!.returnMiles[i - 1] }} miles
+        {{ routeResults!.return.miles[i - 1] }} miles
       </p>
     </mat-list-item>
   </mat-list>
   <p>
     Total cost to get back home: £{{
-      routeResults!.returnTotalCost.toFixed(2)
+      routeResults!.return.cost.toFixed(2)
     }}
   </p>
 

@@ -69,6 +69,6 @@
 </div>
 
 <app-route-results
-  *ngIf="routeDisplay.outboundJourney.length"
+  *ngIf="routeDisplay!.outbound.journey.length"
   [routeResults]="routeDisplay"
 ></app-route-results>
