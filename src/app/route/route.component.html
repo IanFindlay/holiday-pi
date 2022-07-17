@@ -58,6 +58,7 @@
     color="primary"
     type="submit"
     [disabled]="!routeForm.valid"
+    [disabled]="routeForm.value.departureAirport === routeForm.value.destinationAirport"
   >
     Investigate
   </button>
