@@ -22,6 +22,7 @@ export class RouteComponent implements OnInit {
 
   @Input() airports?: Airport[];
   @Input() idToNameId?: FlexObject;
+  @Input() journeyCost?: number;
 
   formSubmitting = false;
 
