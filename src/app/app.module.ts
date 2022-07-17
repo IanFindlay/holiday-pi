@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { JourneyComponent } from './journey/journey.component';
 import { MainComponent } from './main/main.component';
 import { RouteComponent } from './route/route.component';
+import { RouteResultsComponent } from './route-results/route-results.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -17,7 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { RouteResultsComponent } from './route-results/route-results.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { RouteResultsComponent } from './route-results/route-results.component';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatSlideToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

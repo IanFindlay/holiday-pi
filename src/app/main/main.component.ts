@@ -17,6 +17,7 @@ import { catchError } from 'rxjs';
 export class MainComponent implements OnInit {
   airports?: Airport[];
   idToNameId?: FlexObject;
+  journeyCost?: number;
   error?: string;
 
   constructor(private airportsService: AirportsService) {}
@@ -45,5 +46,9 @@ export class MainComponent implements OnInit {
         );
         this.NameIdFromId(this.airports);
       });
+  }
+
+  setJourneyCost(cost: number): void {
+    this.journeyCost = cost;
   }
 }

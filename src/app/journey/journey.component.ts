@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { catchError } from 'rxjs';
 
@@ -13,6 +13,8 @@ import { Airport, JourneyDetails, RouteDetails } from '../shared/interfaces';
 })
 export class JourneyComponent implements OnInit {
   sectionHeading = 'The Case of the Cheapest Way to Get to the Airport';
+
+  @Output() journeyCost = new EventEmitter<number>();
 
   error?: string;
   formSubmitting = false;
@@ -52,6 +54,8 @@ export class JourneyComponent implements OnInit {
       .subscribe((response) => {
         const details = <JourneyDetails>response;
         const { taxi, car } = details.journey;
+        const cheapest = taxi <= car ? taxi : car;
+        this.journeyCost.emit(cheapest);
         this.journeyMessage = this.composeJourneyMessage(
           taxi,
           car,

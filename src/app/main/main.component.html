@@ -1,4 +1,8 @@
 <h3 *ngIf="error">{{ error }}</h3>
 
-<app-journey></app-journey>
-<app-route [airports]="airports" [idToNameId]="idToNameId"></app-route>
+<app-journey (journeyCost)="setJourneyCost($event)"></app-journey>
+<app-route
+  [airports]="airports"
+  [idToNameId]="idToNameId"
+  [journeyCost]="journeyCost"
+></app-route>

@@ -9,6 +9,9 @@ import { FlexObject, RouteDisplay } from '../shared/interfaces';
 export class RouteResultsComponent implements OnInit {
   @Input() routeResults!: RouteDisplay;
   @Input() idToNameId?: FlexObject;
+  @Input() journeyCost?: number;
+
+  includeJourney = false;
 
   constructor() {}
 
