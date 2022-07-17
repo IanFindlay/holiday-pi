@@ -4,7 +4,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { JourneyCalculationService } from '../services/journey-calculation.service';
 import { noNonIntegers } from '../shared/customValidators.directive';
 import { Airport } from '../shared/interfaces';
-import { composeJourneyMessage } from '../shared/utilities';
 
 @Component({
   selector: 'app-journey',
@@ -51,7 +50,7 @@ export class JourneyComponent implements OnInit {
       .calculateJourney(distance, numPassengers)
       .subscribe((details) => {
         const { taxi, car } = details.journey;
-        this.journeyMessage = composeJourneyMessage(
+        this.journeyMessage = this.composeJourneyMessage(
           taxi,
           car,
           numPassengers
@@ -59,4 +58,31 @@ export class JourneyComponent implements OnInit {
         this.formSubmitting = false;
       });
   }
+
+  private composeJourneyMessage(
+    taxiCost: number,
+    carCost: number,
+    numPassenger: number
+  ): string {
+    let message = '';
+    const suffix = numPassenger > 4 ? 's' : '';
+
+    if (taxiCost === carCost)
+      message = `Taxi${suffix} or car${suffix}... I estimate that it won't matter as both will cost about £${taxiCost.toFixed(
+        2
+      )}`;
+    else if (taxiCost < carCost)
+      message = `Taxi${suffix} will be cheaper costing about £${taxiCost.toFixed(
+        2
+      )} which is £${(carCost - taxiCost).toFixed(2)}
+               less than taking the car${suffix}`;
+    else
+      message = `Car${suffix} will be cheaper costing about £${carCost.toFixed(
+        2
+      )} which is £${(taxiCost - carCost).toFixed(2)}
+               less than taking the taxi${suffix}`;
+
+    return message;
+  }
+
 }
