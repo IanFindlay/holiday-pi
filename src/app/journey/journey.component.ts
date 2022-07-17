@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { catchError } from 'rxjs';
 
 import { JourneyCalculationService } from '../services/journey-calculation.service';
 import { noNonIntegers } from '../shared/customValidators.directive';
-import { Airport } from '../shared/interfaces';
+import { Airport, JourneyDetails, RouteDetails } from '../shared/interfaces';
 
 @Component({
   selector: 'app-journey',
@@ -14,6 +15,8 @@ export class JourneyComponent implements OnInit {
   sectionHeading = 'The Case of the Cheapest Way to Get to the Airport';
 
   @Input() airports?: Airport[];
+
+  error?: string;
 
   formSubmitting = false;
 
@@ -42,13 +45,16 @@ export class JourneyComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void {
+    this.error = undefined;
     this.formSubmitting = true;
     const distance = <string>this.journeyForm.value.distance;
     const numPassengers = Number(this.journeyForm.value.numPassengers);
 
     this.journeyCalculationService
       .calculateJourney(distance, numPassengers)
-      .subscribe((details) => {
+      .pipe(catchError((error) => (this.error = error)))
+      .subscribe((response) => {
+        const details = <JourneyDetails>response;
         const { taxi, car } = details.journey;
         this.journeyMessage = this.composeJourneyMessage(
           taxi,
@@ -83,5 +89,4 @@ export class JourneyComponent implements OnInit {
 
     return message;
   }
-
 }

@@ -52,21 +52,24 @@
       >Calculate return</mat-checkbox
     >
   </div>
+      
+  <p>{{routeForm.status}}</p>
 
   <button
     mat-raised-button
     color="primary"
     type="submit"
-    disable="!routeForm.valid"
-    disable="routeForm.value.departureAirport === routeForm.value.destinationAirport"
+    [disabled]="!routeForm.valid || routeForm.value.departureAirport === routeForm.value.destinationAirport"
   >
     Investigate
   </button>
 </form>
 
-<div *ngIf="formSubmitting">
+<div *ngIf="formSubmitting && !error">
   <p>Investigating...<mat-progress-bar></mat-progress-bar></p>
 </div>
+
+<h3 *ngIf="error">{{error}}</h3>
 
 <app-route-results
   *ngIf="routeDisplay!.outbound.journey.length"

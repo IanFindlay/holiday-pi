@@ -33,9 +33,11 @@
   </button>
 </form>
 
-<div *ngIf="formSubmitting">
+<div *ngIf="formSubmitting && !error">
   <p>Investigating...<mat-progress-bar></mat-progress-bar></p>
 </div>
+
+<h3 *ngIf="error">{{error}}</h3>
 
 <div *ngIf="journeyMessage">
   <p>{{ journeyMessage }}</p>

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { catchError } from 'rxjs';
 import { RouteCalculationService } from '../services/route-calculation.service';
 import { noNonIntegers } from '../shared/customValidators.directive';
 
@@ -17,6 +18,8 @@ export class RouteComponent implements OnInit {
   @Input() airports?: Airport[];
 
   formSubmitting = false;
+
+  error?: string;
 
   routeDisplay: RouteDisplay = {
     outbound: {
@@ -57,6 +60,7 @@ export class RouteComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void {
+    this.error = undefined;
     this.routeDisplay!.totalCost = 0;
     this.formSubmitting = true;
     const numPassengers = Number(this.routeForm.value.numPassengers);
@@ -70,8 +74,13 @@ export class RouteComponent implements OnInit {
 
     this.routeCalculationService
       .calculateRoute(numPassengers, departureAirport, destinationAirport)
+      .pipe(catchError((error) => (this.error = error)))
       .subscribe((route) => {
-        this.addRouteToRouteDisplay(route, this.routeDisplay!, false);
+        this.addRouteToRouteDisplay(
+          <RouteDetails>route,
+          this.routeDisplay!,
+          false
+        );
         if (!this.calculateReturn) {
           this.formSubmitting = false;
           this.routeDisplay!.showReturn = false;
@@ -81,8 +90,13 @@ export class RouteComponent implements OnInit {
     if (this.calculateReturn) {
       this.routeCalculationService
         .calculateRoute(numPassengers, destinationAirport, departureAirport)
+        .pipe(catchError((error) => (this.error = error)))
         .subscribe((route) => {
-          this.addRouteToRouteDisplay(route, this.routeDisplay!, true);
+          this.addRouteToRouteDisplay(
+            <RouteDetails>route,
+            this.routeDisplay!,
+            true
+          );
           this.routeDisplay!.showReturn = true;
           this.formSubmitting = false;
         });
