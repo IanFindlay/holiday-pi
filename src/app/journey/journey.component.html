@@ -1,15 +1,6 @@
 <h3>{{ sectionHeading }}</h3>
 
 <form [formGroup]="journeyForm" (ngSubmit)="onSubmit()">
-  <mat-form-field class="formField" appearance="fill">
-    <mat-label>Departure Airport</mat-label>
-    <mat-select formControlName="departureAirport" required>
-      <mat-option *ngFor="let airport of airports" [value]="airport">
-        {{ airport.name }}
-      </mat-option>
-    </mat-select>
-    <mat-hint align="start">Select an airport</mat-hint>
-  </mat-form-field>
 
   <mat-form-field class="formField" appearance="fill">
     <mat-label>Distance to airport (in miles)</mat-label>
@@ -42,9 +33,11 @@
   </button>
 </form>
 
-<div *ngIf="formSubmitting">
+<div *ngIf="formSubmitting && !error">
   <p>Investigating...<mat-progress-bar></mat-progress-bar></p>
 </div>
+
+<h3 *ngIf="error">{{error}}</h3>
 
 <div *ngIf="journeyMessage">
   <p>{{ journeyMessage }}</p>

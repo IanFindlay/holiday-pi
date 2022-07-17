@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RouteDisplay } from '../shared/interfaces';
+import { FlexObject, RouteDisplay } from '../shared/interfaces';
 
 @Component({
   selector: 'app-route-results',
@@ -8,6 +8,7 @@ import { RouteDisplay } from '../shared/interfaces';
 })
 export class RouteResultsComponent implements OnInit {
   @Input() routeResults?: RouteDisplay;
+  @Input() idToName?: FlexObject;
 
   constructor() {}
 

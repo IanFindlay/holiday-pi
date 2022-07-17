@@ -1,28 +1,37 @@
 <h3>{{ sectionHeading }}</h3>
 
+<div *ngIf="!airports">
+  <p>Loading airports list...</p>
+  <mat-spinner mode="indeterminate" diameter="20"></mat-spinner>
+</div>
+
 <form [formGroup]="routeForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="formField" appearance="fill">
     <mat-label>Departure Airport</mat-label>
     <mat-select
       formControlName="departureAirport"
-      [value]="selectedAirport"
+      disable="!airports"
       required
     >
       <mat-option *ngFor="let airport of airports" [value]="airport">
-        {{ airport.name }}
+        <p>{{ airport.name }} ({{airport.id}})</p>
       </mat-option>
     </mat-select>
-    <mat-hint align="start">Select an airport</mat-hint>
+    <mat-hint align="start">Must not be the same as the destination airport</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="formField" appearance="fill">
     <mat-label>Destination Airport</mat-label>
-    <mat-select formControlName="destinationAirport" required>
+    <mat-select
+      formControlName="destinationAirport"
+      disable="!airports"
+      required
+    >
       <mat-option *ngFor="let airport of airports" [value]="airport">
-        {{ airport.name }}
+        <p>{{ airport.name }} ({{airport.id}})</p>
       </mat-option>
     </mat-select>
-    <mat-hint align="start">Select an airport</mat-hint>
+    <mat-hint align="start">Must not be the same as the departure airport</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="formField" appearance="fill">
@@ -39,26 +48,29 @@
   </mat-form-field>
 
   <div>
-    <mat-checkbox formControlName="calculateReturn" [checked]="calculateReturn"
+    <mat-checkbox formControlName="calculateReturn" checked="calculateReturn" color="primary"
       >Calculate return</mat-checkbox
     >
   </div>
-
+      
   <button
     mat-raised-button
     color="primary"
     type="submit"
-    [disabled]="!routeForm.valid"
+    [disabled]="!routeForm.valid || routeForm.value.departureAirport === routeForm.value.destinationAirport"
   >
     Investigate
   </button>
 </form>
 
-<div *ngIf="formSubmitting">
+<div *ngIf="formSubmitting && !error">
   <p>Investigating...<mat-progress-bar></mat-progress-bar></p>
 </div>
 
+<h3 *ngIf="error">{{error}}</h3>
+
 <app-route-results
-  *ngIf="routeDisplay.outboundJourney.length"
+  *ngIf="routeDisplay!.outbound.journey.length"
   [routeResults]="routeDisplay"
+  [idToName]="idToName"
 ></app-route-results>

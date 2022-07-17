@@ -1,9 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { catchError } from 'rxjs';
 import { RouteCalculationService } from '../services/route-calculation.service';
 import { noNonIntegers } from '../shared/customValidators.directive';
 
-import { Airport, RouteDisplay } from '../shared/interfaces';
+import {
+  Airport,
+  Airports,
+  FlexObject,
+  RouteDetails,
+  RouteDisplay,
+} from '../shared/interfaces';
 
 @Component({
   selector: 'app-route',
@@ -15,19 +22,24 @@ export class RouteComponent implements OnInit {
     'The Case of the Cheapest Way to Go From One Airport to Another';
 
   @Input() airports?: Airport[];
-  @Input() selectedAirport?: Airport;
-  @Input() numPassengers?: number;
+  @Input() idToName?: FlexObject;
 
   formSubmitting = false;
 
+  error?: string;
+
   routeDisplay: RouteDisplay = {
-    outboundJourney: [],
-    outboundMiles: [],
+    outbound: {
+      journey: [],
+      miles: [],
+      cost: 0,
+    },
+    return: {
+      journey: [],
+      miles: [],
+      cost: 0,
+    },
     showReturn: false,
-    returnJourney: [],
-    returnMiles: [],
-    outboundTotalCost: 0,
-    returnTotalCost: 0,
     totalCost: 0,
   };
 
@@ -55,7 +67,8 @@ export class RouteComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void {
-    this.routeDisplay.totalCost = 0;
+    this.error = undefined;
+    this.routeDisplay!.totalCost = 0;
     this.formSubmitting = true;
     const numPassengers = Number(this.routeForm.value.numPassengers);
     const departureAirport = <Airport>(
@@ -68,28 +81,45 @@ export class RouteComponent implements OnInit {
 
     this.routeCalculationService
       .calculateRoute(numPassengers, departureAirport, destinationAirport)
+      .pipe(catchError((error) => (this.error = error)))
       .subscribe((route) => {
-        this.routeDisplay.outboundJourney = <string[]>route.details.journey;
-        this.routeDisplay.outboundMiles = route.details.miles;
-        this.routeDisplay.outboundTotalCost = route.details.totalCost;
-        this.routeDisplay.totalCost += route.details.totalCost;
+        this.addRouteToRouteDisplay(
+          <RouteDetails>route,
+          this.routeDisplay!,
+          false
+        );
         if (!this.calculateReturn) {
           this.formSubmitting = false;
-          this.routeDisplay.showReturn = false;
+          this.routeDisplay!.showReturn = false;
         }
       });
 
     if (this.calculateReturn) {
       this.routeCalculationService
         .calculateRoute(numPassengers, destinationAirport, departureAirport)
+        .pipe(catchError((error) => (this.error = error)))
         .subscribe((route) => {
-          this.routeDisplay.returnJourney = route.details.journey;
-          this.routeDisplay.returnMiles = route.details.miles;
-          this.routeDisplay.returnTotalCost = route.details.totalCost;
-          this.routeDisplay.totalCost += route.details.totalCost;
-          this.routeDisplay.showReturn = true;
+          this.addRouteToRouteDisplay(
+            <RouteDetails>route,
+            this.routeDisplay!,
+            true
+          );
+          this.routeDisplay!.showReturn = true;
           this.formSubmitting = false;
         });
     }
+  }
+
+  private addRouteToRouteDisplay(
+    route: RouteDetails,
+    routeDisplay: RouteDisplay,
+    isReturn: boolean
+  ): void {
+    let routeSubObject = isReturn ? routeDisplay.return : routeDisplay.outbound;
+    routeSubObject.journey = route.details.journey;
+    routeSubObject.miles = route.details.miles;
+    routeSubObject.cost = route.details.totalCost;
+
+    routeDisplay.totalCost += route.details.totalCost;
   }
 }

@@ -25,12 +25,20 @@ export interface RouteDetails {
 }
 
 export interface RouteDisplay {
-  outboundJourney: string[];
-  outboundMiles: number[];
+  outbound: {
+    journey: string[];
+    miles: number[];
+    cost: number;
+  };
+  return: {
+    journey: string[];
+    miles: number[];
+    cost: number;
+  };
   showReturn: boolean;
-  returnJourney: string[];
-  returnMiles: number[];
-  outboundTotalCost: number;
-  returnTotalCost: number;
   totalCost: number;
+}
+
+export interface FlexObject {
+  [key: string]: any;
 }

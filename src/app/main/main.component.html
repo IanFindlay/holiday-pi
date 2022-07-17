@@ -1,6 +1,4 @@
-<div *ngIf="airportsLoading">
-  <p>Loading airports list...</p>
-  <mat-spinner mode="indeterminate" diameter="20"></mat-spinner>
-</div>
-<app-journey [airports]="airports" [numPassengers]="numPassengers" [selectedAirport]="selectedAirport"></app-journey>
-<app-route [airports]="airports" [numPassengers]="numPassengers" [selectedAirport]="selectedAirport"></app-route>
+<h3 *ngIf="error">{{error}}</h3>
+
+<app-journey></app-journey>
+<app-route [airports]="airports" [idToName]="idToName"></app-route>

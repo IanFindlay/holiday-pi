@@ -1,18 +1,39 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { JourneyDetails } from '../shared/interfaces';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class JourneyCalculationService {
-
   private journeyUrl = 'https:holiday-pi.herokuapp.com/api/journey';
 
   constructor(private http: HttpClient) {}
 
-  calculateJourney(distance: string, numPassengers: number): Observable<JourneyDetails> {
-    return this.http.get<JourneyDetails>(`${this.journeyUrl}?distance=${distance}&numPassengers=${numPassengers}`);
+  calculateJourney(
+    distance: string,
+    numPassengers: number
+  ): Observable<JourneyDetails> {
+    return this.http.get<JourneyDetails>(
+      `${this.journeyUrl}?distance=${distance}&numPassengers=${numPassengers}`
+    );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.error('An error occurred:', error.error);
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error
+      );
+    }
+    return throwError(
+      () =>
+        new Error(
+          'Something went wrong when investigating your journey to the airport; please try again later'
+        )
+    );
   }
 }
