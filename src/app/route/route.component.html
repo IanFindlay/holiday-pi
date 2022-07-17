@@ -17,7 +17,7 @@
         {{ airport.name }}
       </mat-option>
     </mat-select>
-    <mat-hint align="start">Select an airport</mat-hint>
+    <mat-hint align="start">Must not be the same as the destination airport</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="formField" appearance="fill">
@@ -31,7 +31,7 @@
         {{ airport.name }}
       </mat-option>
     </mat-select>
-    <mat-hint align="start">Select an airport</mat-hint>
+    <mat-hint align="start">Must not be the same as the departure airport</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="formField" appearance="fill">
@@ -53,8 +53,6 @@
     >
   </div>
       
-  <p>{{routeForm.status}}</p>
-
   <button
     mat-raised-button
     color="primary"
