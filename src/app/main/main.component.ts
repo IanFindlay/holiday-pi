@@ -11,9 +11,7 @@ import { AirportsService } from '../services/airports.service';
 export class MainComponent implements OnInit {
 
   airportsLoading = false;
-  airports!: Airport[];
-  numPassengers?: number;
-  selectedAirport?: Airport;
+  airports?: Airport[];
 
   constructor(
     private airportsService: AirportsService,

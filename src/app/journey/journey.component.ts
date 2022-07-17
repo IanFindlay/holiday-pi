@@ -15,15 +15,12 @@ export class JourneyComponent implements OnInit {
   sectionHeading = 'The Case of the Cheapest Way to Get to the Airport';
 
   @Input() airports?: Airport[];
-  @Input() numPassengers?: number;
-  @Input() selectedAirport?: Airport;
 
   formSubmitting = false;
 
   journeyMessage?: string;
 
   journeyForm = this.fb.group({
-    departureAirport: ['', Validators.required],
     distance: [
       '',
       Validators.compose([Validators.required, Validators.min(0.1)]),
@@ -47,20 +44,17 @@ export class JourneyComponent implements OnInit {
 
   onSubmit(): void {
     this.formSubmitting = true;
-    this.selectedAirport = <Airport>(
-      (<unknown>this.journeyForm.value.departureAirport)
-    );
     const distance = <string>this.journeyForm.value.distance;
-    this.numPassengers = Number(this.journeyForm.value.numPassengers);
+    const numPassengers = Number(this.journeyForm.value.numPassengers);
 
     this.journeyCalculationService
-      .calculateJourney(distance, this.numPassengers)
+      .calculateJourney(distance, numPassengers)
       .subscribe((details) => {
         const { taxi, car } = details.journey;
         this.journeyMessage = composeJourneyMessage(
           taxi,
           car,
-          <number>this.numPassengers
+          numPassengers
         );
         this.formSubmitting = false;
       });
