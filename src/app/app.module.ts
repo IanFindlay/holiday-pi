@@ -11,6 +11,7 @@ import { RouteComponent } from './route/route.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -19,7 +20,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { RouteResultsComponent } from './route-results/route-results.component';
 
 @NgModule({
-  declarations: [AppComponent, JourneyComponent, MainComponent, RouteComponent, RouteResultsComponent],
+  declarations: [
+    AppComponent,
+    JourneyComponent,
+    MainComponent,
+    RouteComponent,
+    RouteResultsComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -27,6 +34,7 @@ import { RouteResultsComponent } from './route-results/route-results.component';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatExpansionModule,
     MatInputModule,
     MatListModule,
     MatProgressBarModule,

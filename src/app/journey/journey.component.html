@@ -1,7 +1,6 @@
 <h3>{{ sectionHeading }}</h3>
 
 <form [formGroup]="journeyForm" (ngSubmit)="onSubmit()">
-
   <mat-form-field class="formField" appearance="fill">
     <mat-label>Distance to airport (in miles)</mat-label>
     <input matInput type="number" min="0" formControlName="distance" required />
@@ -36,7 +35,7 @@
   <p>Investigating...<mat-progress-bar></mat-progress-bar></p>
 </div>
 
-<h3 *ngIf="error">{{error}}</h3>
+<h3 *ngIf="error">{{ error }}</h3>
 
 <div *ngIf="journeyMessage">
   <p>{{ journeyMessage }}</p>

@@ -28,11 +28,15 @@ export interface RouteDisplay {
   outbound: {
     journey: string[];
     miles: number[];
+    totalMiles: number;
+    numConnections: number;
     cost: number;
   };
   return: {
     journey: string[];
     miles: number[];
+    totalMiles: number;
+    numConnections: number;
     cost: number;
   };
   showReturn: boolean;

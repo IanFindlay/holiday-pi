@@ -7,8 +7,8 @@ import { FlexObject, RouteDisplay } from '../shared/interfaces';
   styleUrls: ['./route-results.component.css'],
 })
 export class RouteResultsComponent implements OnInit {
-  @Input() routeResults?: RouteDisplay;
-  @Input() idToName?: FlexObject;
+  @Input() routeResults!: RouteDisplay;
+  @Input() idToNameId?: FlexObject;
 
   constructor() {}
 

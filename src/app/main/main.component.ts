@@ -16,7 +16,7 @@ import { catchError } from 'rxjs';
 })
 export class MainComponent implements OnInit {
   airports?: Airport[];
-  idToName?: FlexObject;
+  idToNameId?: FlexObject;
   error?: string;
 
   constructor(private airportsService: AirportsService) {}
@@ -25,12 +25,12 @@ export class MainComponent implements OnInit {
     this.getAirports();
   }
 
-  private createIdToNameRef(airports?: Airport[]): void {
+  private NameIdFromId(airports?: Airport[]): void {
     const refObj: FlexObject = {};
     airports?.forEach((airport) => {
-      refObj[airport.id] = airport.name;
+      refObj[airport.id] = `${airport.name} (${airport.id})`;
     });
-    this.idToName = refObj;
+    this.idToNameId = refObj;
   }
 
   getAirports(): void {
@@ -43,7 +43,7 @@ export class MainComponent implements OnInit {
         this.airports = airports.airports.sort((a: Airport, b: Airport) =>
           a.name.localeCompare(b.name)
         );
-        this.createIdToNameRef(this.airports);
+        this.NameIdFromId(this.airports);
       });
   }
 }

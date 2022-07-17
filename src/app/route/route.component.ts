@@ -6,7 +6,6 @@ import { noNonIntegers } from '../shared/customValidators.directive';
 
 import {
   Airport,
-  Airports,
   FlexObject,
   RouteDetails,
   RouteDisplay,
@@ -22,7 +21,7 @@ export class RouteComponent implements OnInit {
     'The Case of the Cheapest Way to Go From One Airport to Another';
 
   @Input() airports?: Airport[];
-  @Input() idToName?: FlexObject;
+  @Input() idToNameId?: FlexObject;
 
   formSubmitting = false;
 
@@ -32,11 +31,15 @@ export class RouteComponent implements OnInit {
     outbound: {
       journey: [],
       miles: [],
+      totalMiles: 0,
+      numConnections: 0,
       cost: 0,
     },
     return: {
       journey: [],
       miles: [],
+      numConnections: 0,
+      totalMiles: 0,
       cost: 0,
     },
     showReturn: false,
@@ -118,6 +121,8 @@ export class RouteComponent implements OnInit {
     let routeSubObject = isReturn ? routeDisplay.return : routeDisplay.outbound;
     routeSubObject.journey = route.details.journey;
     routeSubObject.miles = route.details.miles;
+    routeSubObject.totalMiles = route.details.miles.reduce((a, b) => a + b);
+    routeSubObject.numConnections = route.details.journey.length - 2;
     routeSubObject.cost = route.details.totalCost;
 
     routeDisplay.totalCost += route.details.totalCost;
