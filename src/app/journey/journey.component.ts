@@ -14,12 +14,8 @@ import { Airport, JourneyDetails, RouteDetails } from '../shared/interfaces';
 export class JourneyComponent implements OnInit {
   sectionHeading = 'The Case of the Cheapest Way to Get to the Airport';
 
-  @Input() airports?: Airport[];
-
   error?: string;
-
   formSubmitting = false;
-
   journeyMessage?: string;
 
   journeyForm = this.fb.group({
