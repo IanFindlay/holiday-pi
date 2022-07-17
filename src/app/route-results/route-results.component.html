@@ -1,13 +1,13 @@
 <h3>Outbound Journey</h3>
 <mat-list
   *ngFor="
-    let airport of routeResults!.outbound.journey;
+    let id of routeResults!.outbound.journey;
     index as i;
     first as departure
   "
 >
   <mat-list-item>
-    <p matLine>{{ airport }}</p>
+    <p matLine>{{idToName?.[id]}} ({{ id }})</p>
     <p matLine *ngIf="!departure">
       {{ routeResults!.outbound.miles[i - 1] }} miles
     </p>
@@ -21,13 +21,13 @@
   <h3>Return Journey</h3>
   <mat-list
     *ngFor="
-      let airport of routeResults!.return.journey;
+      let id of routeResults!.return.journey;
       index as i;
       first as departure
     "
   >
     <mat-list-item>
-      <p matLine>{{ airport }}</p>
+      <p matLine>{{idToName?.[id]}} ({{ id }})</p>
       <p matLine *ngIf="!departure">
         {{ routeResults!.return.miles[i - 1] }} miles
       </p>

@@ -38,3 +38,7 @@ export interface RouteDisplay {
   showReturn: boolean;
   totalCost: number;
 }
+
+export interface FlexObject {
+  [key: string]: any;
+}

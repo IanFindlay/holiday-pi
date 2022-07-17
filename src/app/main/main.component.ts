@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Airport, Airports, RouteDetails } from '../shared/interfaces';
+import {
+  Airport,
+  Airports,
+  FlexObject,
+  RouteDetails,
+} from '../shared/interfaces';
 import { AirportsService } from '../services/airports.service';
 import { catchError } from 'rxjs';
 
@@ -11,12 +16,21 @@ import { catchError } from 'rxjs';
 })
 export class MainComponent implements OnInit {
   airports?: Airport[];
+  idToName?: FlexObject;
   error?: string;
 
   constructor(private airportsService: AirportsService) {}
 
   ngOnInit(): void {
     this.getAirports();
+  }
+
+  private createIdToNameRef(airports?: Airport[]): void {
+    const refObj: FlexObject = {};
+    airports?.forEach((airport) => {
+      refObj[airport.id] = airport.name;
+    });
+    this.idToName = refObj;
   }
 
   getAirports(): void {
@@ -29,6 +43,7 @@ export class MainComponent implements OnInit {
         this.airports = airports.airports.sort((a: Airport, b: Airport) =>
           a.name.localeCompare(b.name)
         );
+        this.createIdToNameRef(this.airports);
       });
   }
 }

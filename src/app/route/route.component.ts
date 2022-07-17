@@ -4,7 +4,13 @@ import { catchError } from 'rxjs';
 import { RouteCalculationService } from '../services/route-calculation.service';
 import { noNonIntegers } from '../shared/customValidators.directive';
 
-import { Airport, RouteDetails, RouteDisplay } from '../shared/interfaces';
+import {
+  Airport,
+  Airports,
+  FlexObject,
+  RouteDetails,
+  RouteDisplay,
+} from '../shared/interfaces';
 
 @Component({
   selector: 'app-route',
@@ -16,6 +22,7 @@ export class RouteComponent implements OnInit {
     'The Case of the Cheapest Way to Go From One Airport to Another';
 
   @Input() airports?: Airport[];
+  @Input() idToName?: FlexObject;
 
   formSubmitting = false;
 
