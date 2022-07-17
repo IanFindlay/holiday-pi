@@ -7,8 +7,6 @@ import { JourneyDetails } from '../shared/interfaces';
   providedIn: 'root',
 })
 export class JourneyCalculationService {
-  private journeyUrl = 'https:holiday-pi.herokuapp.com/api/journey';
-
   constructor(private http: HttpClient) {}
 
   calculateJourney(
@@ -16,7 +14,7 @@ export class JourneyCalculationService {
     numPassengers: number
   ): Observable<JourneyDetails> {
     return this.http.get<JourneyDetails>(
-      `${this.journeyUrl}?distance=${distance}&numPassengers=${numPassengers}`
+      `https://holiday-pi.herokuapp.com/api/journey?distance=${distance}&numPassengers=${numPassengers}`
     );
   }
 

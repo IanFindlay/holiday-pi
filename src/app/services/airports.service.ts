@@ -8,13 +8,11 @@ import { Airports } from '../shared/interfaces';
   providedIn: 'root',
 })
 export class AirportsService {
-  private airportsUrl = 'https:holiday-pi.herokuapp.com/api/airports';
-
   constructor(private http: HttpClient) {}
 
   getAirports(): Observable<Airports> {
     return this.http
-      .get<Airports>(this.airportsUrl)
+      .get<Airports>('https://holiday-pi.herokuapp.com/api/airports')
       .pipe(retry(3), catchError(this.handleError));
   }
 

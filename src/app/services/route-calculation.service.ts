@@ -18,7 +18,7 @@ export class RouteCalculationService {
   ): Observable<RouteDetails> {
     return this.http
       .get<RouteDetails>(
-        `${this.routeUrl}/${departure.id}/to/${destination.id}?numPassengers=${numPassengers}`
+        `https://holiday-pi.herokuapp.com/api/airports/${departure.id}/to/${destination.id}?numPassengers=${numPassengers}`
       )
       .pipe(retry(3), catchError(this.handleError));
   }
