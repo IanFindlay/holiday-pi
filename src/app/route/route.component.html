@@ -1,11 +1,16 @@
 <h3>{{ sectionHeading }}</h3>
 
+<div *ngIf="!airports">
+  <p>Loading airports list...</p>
+  <mat-spinner mode="indeterminate" diameter="20"></mat-spinner>
+</div>
+
 <form [formGroup]="routeForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="formField" appearance="fill">
     <mat-label>Departure Airport</mat-label>
     <mat-select
       formControlName="departureAirport"
-      [value]="selectedAirport"
+      [disabled]="!airports"
       required
     >
       <mat-option *ngFor="let airport of airports" [value]="airport">
@@ -17,7 +22,11 @@
 
   <mat-form-field class="formField" appearance="fill">
     <mat-label>Destination Airport</mat-label>
-    <mat-select formControlName="destinationAirport" required>
+    <mat-select
+      formControlName="destinationAirport"
+      [disabled]="!airports"
+      required
+    >
       <mat-option *ngFor="let airport of airports" [value]="airport">
         {{ airport.name }}
       </mat-option>

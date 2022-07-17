@@ -10,7 +10,6 @@ import { AirportsService } from '../services/airports.service';
 })
 export class MainComponent implements OnInit {
 
-  airportsLoading = false;
   airports?: Airport[];
 
   constructor(
@@ -22,12 +21,10 @@ export class MainComponent implements OnInit {
   }
 
   getAirports(): void {
-    this.airportsLoading = true;
     this.airportsService.getAirports().subscribe((airports) => {
       this.airports = airports.airports.sort((a: Airport, b: Airport) =>
         a.name.localeCompare(b.name)
       );
-      this.airportsLoading = false;
     });
   }
 }
