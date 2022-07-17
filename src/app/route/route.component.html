@@ -14,7 +14,7 @@
       required
     >
       <mat-option *ngFor="let airport of airports" [value]="airport">
-        {{ airport.name }}
+        <p>{{ airport.name }} ({{airport.id}})</p>
       </mat-option>
     </mat-select>
     <mat-hint align="start">Must not be the same as the destination airport</mat-hint>
@@ -28,7 +28,7 @@
       required
     >
       <mat-option *ngFor="let airport of airports" [value]="airport">
-        {{ airport.name }}
+        <p>{{ airport.name }} ({{airport.id}})</p>
       </mat-option>
     </mat-select>
     <mat-hint align="start">Must not be the same as the departure airport</mat-hint>
