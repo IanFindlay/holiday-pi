@@ -1,0 +1,29 @@
+#page {
+  color: var(--primary);
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.4rem;
+  padding-top: 1.2rem;
+}
+
+.title-and-sub {
+  /* background-color: #8259cb; */
+  padding-top: 2.4rem;
+}
+
+h1 {
+  color: var(--primary);
+  font-size: 3.2rem;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 0.8rem;
+}
+
+h2 {
+  background-color: var(--primary);
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 0.6rem;
+  margin-bottom: 2.4rem;
+}

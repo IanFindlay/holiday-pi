@@ -1,0 +1,49 @@
+.expansion-header {
+  min-height: clamp(100px, 120px, 150px);
+  padding: 5px;
+}
+
+.expansion-title {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-bottom: 1.2rem;
+  margin-top: 1.2rem;
+}
+
+.expansion-title > p {
+  margin-left: 0.6rem;
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+.expansion-desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.expansion-desc > p {
+  margin: 0;
+  margin-top: 0.2rem;
+}
+
+.removeNoWrap {
+  white-space: normal !important;
+}
+
+.result {
+  text-align: center;
+}
+
+.mat-expansion-indicator {
+  color: var(--primary);
+  margin-right: 20rem;
+}
+
+h3 {
+  font-size: 1.6rem;
+  margin-bottom: 3.2rem;
+  margin-top: 3.2rem;
+}

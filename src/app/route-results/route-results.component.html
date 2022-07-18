@@ -1,16 +1,17 @@
 <h3>Outbound Journey</h3>
 
 <mat-expansion-panel>
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      {{idToNameId?.[routeResults.outbound.journey[0]]}} &rarr;
-      {{idToNameId?.[routeResults.outbound.journey[routeResults.outbound.journey.length - 1]]}}
+  <mat-expansion-panel-header class="expansion-header">
+    <mat-panel-title class="expansion-title">
+      <p>{{idToNameId?.[routeResults.outbound.journey[0]]}}</p>
+      <p>
+        {{idToNameId?.[routeResults.outbound.journey[routeResults.outbound.journey.length - 1]]}}
+      </p>
     </mat-panel-title>
-    <mat-panel-description>
-      {{ routeResults.outbound.totalMiles }} miles with
-      {{ routeResults.outbound.numConnections }} connections costing £{{
-        routeResults.outbound.cost.toFixed(2)
-      }}
+    <mat-panel-description class="expansion-desc">
+      <p>{{ routeResults.outbound.totalMiles }} miles</p>
+      <p>{{ routeResults.outbound.numConnections }}&nbsp;plane(s)</p>
+      <p>£{{ routeResults.outbound.cost.toFixed(2) }}</p>
     </mat-panel-description>
   </mat-expansion-panel-header>
   <mat-list
@@ -21,7 +22,7 @@
     "
   >
     <mat-list-item>
-      <p matLine>{{idToNameId?.[id]}}</p>
+      <p matLine class="removeNoWrap">{{idToNameId?.[id]}}</p>
       <p matLine *ngIf="!departure">
         {{ routeResults!.outbound.miles[i - 1] }} miles
       </p>
@@ -32,16 +33,17 @@
 <section *ngIf="routeResults!.showReturn">
   <h3>Return Journey</h3>
   <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{idToNameId?.[routeResults.return.journey[0]]}} &rarr;
-        {{idToNameId?.[routeResults.return.journey[routeResults.return.journey.length - 1]]}}
+    <mat-expansion-panel-header class="expansion-header">
+      <mat-panel-title class="expansion-title">
+        <p>{{idToNameId?.[routeResults.return.journey[0]]}}</p>
+        <p>
+          {{idToNameId?.[routeResults.return.journey[routeResults.return.journey.length - 1]]}}
+        </p>
       </mat-panel-title>
-      <mat-panel-description>
-        {{ routeResults.return.totalMiles }} miles with
-        {{ routeResults.return.numConnections }} connections costing £{{
-          routeResults.return.cost.toFixed(2)
-        }}
+      <mat-panel-description class="expansion-desc">
+        <p>{{ routeResults.return.totalMiles }} miles</p>
+        <p>{{ routeResults.return.numConnections }}&nbsp;plane(s)</p>
+        <p>£{{ routeResults.return.cost.toFixed(2) }}</p>
       </mat-panel-description>
     </mat-expansion-panel-header>
     <mat-list
@@ -52,7 +54,7 @@
       "
     >
       <mat-list-item>
-        <p matLine>{{idToNameId?.[id]}}</p>
+        <p class="removeNoWrap" matLine>{{idToNameId?.[id]}}</p>
         <p matLine *ngIf="!departure">
           {{ routeResults!.return.miles[i - 1] }} miles
         </p>
@@ -61,23 +63,25 @@
   </mat-expansion-panel>
 </section>
 
-<h3 *ngIf="!includeJourney">
-  Total Airline Cost: £{{ routeResults!.totalCost.toFixed(2) }} (£{{
-    (routeResults!.totalCost / routeResults.numPassengers).toFixed(2)
-  }}
-  per person)
+<h3 class="result" *ngIf="!includeJourney">
+  <p>Total Cost = £{{ routeResults!.totalCost.toFixed(2) }}</p>
+  <p>
+    (£{{ (routeResults!.totalCost / routeResults.numPassengers).toFixed(2) }}
+    per person)
+  </p>
 </h3>
 
-<h3 *ngIf="includeJourney">
-  Total Cost Including Journey: £
-  {{ (journeyCost! + routeResults!.totalCost).toFixed(2) }}
-  (£{{
-    (
-      journeyCost! +
-      routeResults!.totalCost / routeResults.numPassengers
-    ).toFixed(2)
-  }}
-  per person)
+<h3 class="result" *ngIf="includeJourney">
+  <p>Total Cost = £{{ (journeyCost! + routeResults!.totalCost).toFixed(2) }}</p>
+  <p>
+    (£{{
+      (
+        (journeyCost! + routeResults!.totalCost) /
+        routeResults.numPassengers
+      ).toFixed(2)
+    }}
+    per person)
+  </p>
 </h3>
 
 <mat-slide-toggle

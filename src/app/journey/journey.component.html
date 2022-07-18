@@ -1,14 +1,14 @@
 <h3>{{ sectionHeading }}</h3>
 
-<form [formGroup]="journeyForm" (ngSubmit)="onSubmit()">
-  <mat-form-field class="formField" appearance="fill">
+<form class="journey-form" [formGroup]="journeyForm" (ngSubmit)="onSubmit()">
+  <mat-form-field class="form-field" appearance="fill">
     <mat-label>Distance to airport (in miles)</mat-label>
     <input matInput type="number" min="0" formControlName="distance" required />
     <mat-hint align="start">Must be greater than 0</mat-hint>
     <mat-error align="start">Not a number higher than 0</mat-error>
   </mat-form-field>
 
-  <mat-form-field class="formField" appearance="fill">
+  <mat-form-field class="form-field" appearance="fill">
     <mat-label>Number of passengers</mat-label>
     <input
       matInput
@@ -23,6 +23,7 @@
 
   <button
     mat-raised-button
+    class="form-button"
     color="primary"
     type="submit"
     [disabled]="!journeyForm.valid"
@@ -38,5 +39,8 @@
 <h3 *ngIf="error">{{ error }}</h3>
 
 <div *ngIf="journeyMessage">
-  <p>{{ journeyMessage }}</p>
+  <mat-card>
+    <mat-card-title>Case Solved</mat-card-title>
+    <p class="journey-text">{{ journeyMessage }}</p>
+  </mat-card>
 </div>

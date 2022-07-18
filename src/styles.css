@@ -1,8 +1,30 @@
+:root {
+  --primary: #673ab7;
+  --accent: #ffd740;
+  --warn: #f44336;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+* {
+  box-sizing: border-box;
+}
 
-.formField {
-  width: 80%;
-  margin: 1.6rem;
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.form-field {
+  width: clamp(300px, 80%, 800px);
+  font-size: 1.2rem;
+}
+
+.form-button {
+  font-size: 1.6rem;
+  width: clamp(300px, 60%, 400px);
+  margin-bottom: 1.2rem;
 }
