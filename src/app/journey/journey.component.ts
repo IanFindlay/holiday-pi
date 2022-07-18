@@ -12,7 +12,7 @@ import { Airport, JourneyDetails, RouteDetails } from '../shared/interfaces';
   styleUrls: ['./journey.component.css'],
 })
 export class JourneyComponent implements OnInit {
-  sectionHeading = 'The Case of the Cheapest Way to Get to the Airport';
+  sectionHeading = 'Case One - Cheapest Way to the Airport';
 
   @Output() journeyCost = new EventEmitter<number>();
 
@@ -75,14 +75,14 @@ export class JourneyComponent implements OnInit {
 
     if (taxiCost === carCost)
       message = `Taxi${suffix} or car${suffix}... I estimate that it won't matter
-                 as both will cost about £${taxiCost.toFixed(2)}`;
+                 as both will cost around £${taxiCost.toFixed(2)}`;
     else if (taxiCost < carCost)
-      message = `Taxi${suffix} will be cheaper costing about
-                 £${taxiCost.toFixed(2)} which is
+      message = `Taxi${suffix} will be cheaper at
+                 £${taxiCost.toFixed(2)} which is 
                  £${(carCost - taxiCost).toFixed(2)} less than
                  taking the car${suffix}`;
     else
-      message = `Car${suffix} will be cheaper costing about
+      message = `Car${suffix} will be cheaper at
                  £${carCost.toFixed(2)} which is
                  £${(taxiCost - carCost).toFixed(2)} less than
                  taking the taxi${suffix}`;

@@ -1,0 +1,30 @@
+.journey-form {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr 1fr 1fr;
+  row-gap: 1.2rem;
+  justify-items: center;
+}
+
+.journey-button {
+  font-size: 1.6rem;
+  width: clamp(300px, 66%, 600px);
+  margin-bottom: 1.2rem;
+}
+
+.journey-text {
+  font-size: 1.1rem;
+}
+
+.number-field {
+  width: clamp(300px, 40%, 500px);
+  font-size: 1.1rem;
+}
+
+.mat-card-title {
+  color: var(--primary);
+}
+
+.mat-form-field {
+  color: black;
+}

@@ -17,8 +17,7 @@ import {
   styleUrls: ['./route.component.css'],
 })
 export class RouteComponent implements OnInit {
-  sectionHeading =
-    'The Case of the Cheapest Way to Go From One Airport to Another';
+  sectionHeading = 'Case Two - Cheapest Flights';
 
   @Input() airports?: Airport[];
   @Input() idToNameId?: FlexObject;

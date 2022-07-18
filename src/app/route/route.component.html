@@ -5,11 +5,19 @@
   <mat-spinner mode="indeterminate" diameter="20"></mat-spinner>
 </div>
 
-<form [formGroup]="routeForm" (ngSubmit)="onSubmit()">
-  <mat-form-field class="formField" appearance="fill">
+<form class="route-form" [formGroup]="routeForm" (ngSubmit)="onSubmit()">
+  <mat-form-field class="form-field" appearance="fill">
     <mat-label>Departure Airport</mat-label>
-    <mat-select formControlName="departureAirport" disable="!airports" required>
-      <mat-option *ngFor="let airport of airports" [value]="airport">
+    <mat-select
+      formControlName="departureAirport"
+      [disabled]="!airports"
+      required
+    >
+      <mat-option
+        style="color: var(--primary)"
+        *ngFor="let airport of airports"
+        [value]="airport"
+      >
         <p>{{ airport.name }} ({{ airport.id }})</p>
       </mat-option>
     </mat-select>
@@ -18,14 +26,18 @@
     >
   </mat-form-field>
 
-  <mat-form-field class="formField" appearance="fill">
+  <mat-form-field class="form-field" appearance="fill">
     <mat-label>Destination Airport</mat-label>
     <mat-select
       formControlName="destinationAirport"
-      disable="!airports"
+      [disabled]="!airports"
       required
     >
-      <mat-option *ngFor="let airport of airports" [value]="airport">
+      <mat-option
+        style="color: var(--primary)"
+        *ngFor="let airport of airports"
+        [value]="airport"
+      >
         <p>{{ airport.name }} ({{ airport.id }})</p>
       </mat-option>
     </mat-select>
@@ -34,7 +46,7 @@
     >
   </mat-form-field>
 
-  <mat-form-field class="formField" appearance="fill">
+  <mat-form-field class="form-field" appearance="fill">
     <mat-label>Number of passengers</mat-label>
     <input
       matInput
@@ -47,7 +59,7 @@
     <mat-error>Not a whole number greater than 0</mat-error>
   </mat-form-field>
 
-  <div>
+  <div class="checkbox">
     <mat-checkbox
       formControlName="calculateReturn"
       checked="calculateReturn"
@@ -57,6 +69,7 @@
   </div>
 
   <button
+    class="route-button"
     mat-raised-button
     color="primary"
     type="submit"
