@@ -72,9 +72,7 @@
 </h3>
 
 <h3 class="result" *ngIf="includeJourney">
-  <p>
-    Total Cost = £ {{ (journeyCost! + routeResults!.totalCost).toFixed(2) }}
-  </p>
+  <p>Total Cost = £{{ (journeyCost! + routeResults!.totalCost).toFixed(2) }}</p>
   <p>
     (£{{
       (

@@ -1,27 +1,31 @@
 .route-form {
   display: grid;
   grid-template-columns: 1;
-  grid-template-rows: repeat(3, 1fr) 30px 1fr;
-  row-gap: 1.2rem;
+  grid-template-rows: repeat(5, 1fr);
+  row-gap: 3.2rem;
   justify-items: center;
-}
-
-.form-field {
-  width: clamp(300px, 40%, 500px);
-  font-size: 1.1rem;
-}
-
-.route-button {
-  font-size: 1.6rem;
-  width: clamp(300px, 66%, 600px);
-  margin-bottom: 1.2rem;
 }
 
 .checkbox {
   justify-self: start;
-  align-self: flex-end;
+  align-self: center;
+}
+
+mat-checkbox ::ng-deep .mat-checkbox-inner-container {
+  width: 20px;
+  height: 20px;
+}
+
+mat-checkbox ::ng-deep .mat-checkbox-label {
+  font-size: 1.4rem;
 }
 
 .mat-form-field {
   color: black;
+}
+
+h3 {
+  font-size: 1.6rem;
+  margin-bottom: 3.2rem;
+  margin-top: 3.2rem;
 }
