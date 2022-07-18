@@ -1,27 +1,50 @@
-# HolidayPi
+# Holiday PI - A TypeScript/Angular Front End
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.4.
+A live version of this app [is hosted here](https://holidaypi.findlayian.com)
 
-## Development server
+## Summary
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This is the front end aspect of [this RESTful API](https://github.com/IanFindlay/holiday-pi-api). Together they form my answer to a
+technical test I was given.
 
-## Code scaffolding
+## Run a local version
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Requirements
 
-## Build
+Whilst earlier versions than those below may still work they have not been tested. This application was developed using:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Node version 17
+- npm version 8
+- Angular CLI 14
 
-## Running unit tests
+### Cloning the repository and installing the modules
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+You can clone this repository via one of the three links shown in the 'Code' button dropdown near the top of this page - I'll show the HTTPS option as an example:
 
-## Running end-to-end tests
+```
+git clone https://github.com/IanFindlay/nc-news.git
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Once cloned, navigate to the directory in you terminal and run the following command to install all of the applications dependencies - a list of which can be found in the package.json file:
 
-## Further help
+```
+npm i
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+In order to view the application locally in your browser, run the following command:
+
+```
+ng serve --open
+```
+
+This will automatically open a version of the app running on your localhost on port 4200.
+
+### Build the project
+
+You can build the project with the command:
+
+```
+ng build
+```
+
+Which will store the build artifacts in the `dist/` directory
